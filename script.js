@@ -1,9 +1,13 @@
 
 var Button = React.createClass({
   
+  localHandleClick: function(){
+    this.props.localHandleClick(this.props.increment);
+  },
+
   render: function() {
     return (
-        <button onClick={this.props.localHandleClick}> +1 </button>
+        <button onClick={this.localHandleClick}> +{this.props.increment} </button>
     );
   }
   
@@ -23,14 +27,17 @@ var Main = React.createClass({
     return { counter: 0 }
   },
  
-  handleClick: function() {
-    this.setState( { counter: this.state.counter+1 } );
+  handleClick: function(increment) {
+    this.setState( { counter: this.state.counter+increment } );
   },
  
   render: function() {
     return (
       <div>
-        <Button localHandleClick={this.handleClick} />
+        <Button localHandleClick={this.handleClick} increment={1}/>
+        <Button localHandleClick={this.handleClick} increment={5}/>
+        <Button localHandleClick={this.handleClick} increment={10}/>
+        <Button localHandleClick={this.handleClick} increment={100}/>
         <Result localCounter={this.state.counter}/>
       </div>
     )
